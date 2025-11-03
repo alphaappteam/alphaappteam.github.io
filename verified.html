@@ -15,10 +15,9 @@
       --text-dark: #e5e7eb;
       --muted-light: #64748b;
       --muted-dark: #94a3b8;
-      --accent: #2563eb;
       --radius: 20px;
-      --shadow-light: 0 12px 32px rgba(0, 0, 0, 0.08);
-      --shadow-dark: 0 12px 32px rgba(0, 0, 0, 0.35);
+      --shadow-light: 0 12px 32px rgba(0,0,0,0.08);
+      --shadow-dark: 0 12px 32px rgba(0,0,0,0.35);
     }
 
     @media (prefers-color-scheme: dark) {
@@ -67,7 +66,7 @@
       margin: 0 0 10px;
       font-size: clamp(24px, 4vw, 32px);
       font-weight: 700;
-      letter-spacing: -0.5px;
+      letter-spacing: -.5px;
     }
 
     p {
@@ -76,29 +75,6 @@
       color: var(--muted);
       line-height: 1.5;
     }
-
-    .btn {
-      display: inline-block;
-      margin-top: 26px;
-      padding: 12px 26px;
-      font-size: 16px;
-      font-weight: 500;
-      text-decoration: none;
-      color: white;
-      background: var(--accent);
-      border-radius: 12px;
-      transition: background 0.2s ease;
-    }
-
-    .btn:hover {
-      background: #1e4fcc;
-    }
-
-    .hint {
-      margin-top: 12px;
-      font-size: 13px;
-      color: var(--muted);
-    }
   </style>
 </head>
 
@@ -106,25 +82,13 @@
   <div class="card">
     <h1>Email successfully verified</h1>
     <p>You may now sign in to your Alpha account.</p>
-
-    <a id="openApp" href="#" class="btn">Open the app</a>
-
-    <div id="fallbackHint" class="hint" hidden>
-      If nothing happens, return to the app and sign in.
-    </div>
   </div>
 
   <script>
-    // Configure deep link or future universal link
-    const APP_DEEP_LINK = "alpha://verified"; 
-    const btn = document.getElementById("openApp");
-    btn.href = APP_DEEP_LINK;
-
-    // Attempt auto-open
-    setTimeout(() => {
-      window.location.href = APP_DEEP_LINK;
-      document.getElementById("fallbackHint").hidden = false;
-    }, 900);
+    // Optional: attempt to open app silently (won’t show a button)
+    const APP_DEEP_LINK = "alpha://verified";
+    setTimeout(() => { window.location.href = APP_DEEP_LINK; }, 600);
   </script>
 </body>
 </html>
+
