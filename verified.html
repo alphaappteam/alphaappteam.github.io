@@ -6,60 +6,125 @@
   <title>Email Verified • Alpha</title>
   <meta name="color-scheme" content="light dark" />
   <style>
-    :root{--bg:#f9fafb;--fg:#0f172a;--muted:#475569;--card:#ffffff;--ring:#e2e8f0}
-    @media (prefers-color-scheme: dark){
-      :root{--bg:#0b0f19;--fg:#e5e7eb;--muted:#94a3b8;--card:#0f172a;--ring:#1f2937}
+    :root {
+      --bg-light: #f8fafc;
+      --bg-dark: #0f131a;
+      --card-light: #ffffff;
+      --card-dark: #111827;
+      --text-light: #0f172a;
+      --text-dark: #e5e7eb;
+      --muted-light: #64748b;
+      --muted-dark: #94a3b8;
+      --accent: #2563eb;
+      --radius: 20px;
+      --shadow-light: 0 12px 32px rgba(0, 0, 0, 0.08);
+      --shadow-dark: 0 12px 32px rgba(0, 0, 0, 0.35);
     }
-    html,body{height:100%}
-    body{
-      margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-      background:var(--bg); color:var(--fg); display:grid; place-items:center; padding:24px;
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: var(--bg-dark);
+        --card: var(--card-dark);
+        --text: var(--text-dark);
+        --muted: var(--muted-dark);
+        --shadow: var(--shadow-dark);
+      }
     }
-    .card{
-      width:min(680px,92vw); background:var(--card); border:1px solid var(--ring);
-      border-radius:20px; padding:32px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.06)
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: var(--bg-light);
+        --card: var(--card-light);
+        --text: var(--text-light);
+        --muted: var(--muted-light);
+        --shadow: var(--shadow-light);
+      }
     }
-    h1{font-size:clamp(22px,4vw,32px); margin:0 0 6px}
-    p{margin:0 0 18px; color:var(--muted); font-size:clamp(14px,2.6vw,16px)}
-    .btn{
-      display:inline-block; padding:12px 18px; border-radius:12px; text-decoration:none;
-      border:1px solid var(--ring); background:transparent; color:var(--fg);
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      padding: 20px;
     }
-    .hint{margin-top:12px; font-size:13px; color:var(--muted)}
+
+    .card {
+      background: var(--card);
+      padding: 48px 42px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: min(600px, 90%);
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    p {
+      margin: 0;
+      font-size: clamp(15px, 2.5vw, 17px);
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 26px;
+      padding: 12px 26px;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      color: white;
+      background: var(--accent);
+      border-radius: 12px;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #1e4fcc;
+    }
+
+    .hint {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
   </style>
 </head>
-<body>
-  <main class="card" role="main" aria-live="polite">
-    <h1>Your email has been verified! ✅</h1>
-    <p>You can now sign in to <strong>Alpha</strong>.</p>
 
-    <!-- If you have a custom URL scheme or universal link, set it here -->
-    <a id="openApp" class="btn" href="#">Open the app</a>
-    <div class="hint" id="fallbackHint" hidden>
-      If nothing happens, just return to the app and sign in.
+<body>
+  <div class="card">
+    <h1>Email successfully verified</h1>
+    <p>You may now sign in to your Alpha account.</p>
+
+    <a id="openApp" href="#" class="btn">Open the app</a>
+
+    <div id="fallbackHint" class="hint" hidden>
+      If nothing happens, return to the app and sign in.
     </div>
-  </main>
+  </div>
 
   <script>
-    // === CONFIG ===
-    // If you have a custom scheme (e.g., alpha://verified) set it here:
-    const APP_DEEP_LINK = "alpha://verified";   // replace when ready
-    // Or, if you use a universal link / website, put it here:
-    const WEB_FALLBACK = "/"; // e.g., "/download" or "https://yourdomain.com/app"
-
-    // Wire up the button
+    // Configure deep link or future universal link
+    const APP_DEEP_LINK = "alpha://verified"; 
     const btn = document.getElementById("openApp");
     btn.href = APP_DEEP_LINK;
 
-    // Optional: auto-open the app after a short delay
+    // Attempt auto-open
     setTimeout(() => {
-      try { window.location.href = APP_DEEP_LINK; } catch {}
-      // show a tiny hint in case deep link is not configured yet
+      window.location.href = APP_DEEP_LINK;
       document.getElementById("fallbackHint").hidden = false;
     }, 900);
-
-    // If you prefer an immediate redirect to a web page instead, replace the setTimeout block with:
-    // window.location.replace(WEB_FALLBACK);
   </script>
 </body>
 </html>
