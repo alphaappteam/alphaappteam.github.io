@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Email Verified • Alpha</title>
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root{--bg:#f9fafb;--fg:#0f172a;--muted:#475569;--card:#ffffff;--ring:#e2e8f0}
+    @media (prefers-color-scheme: dark){
+      :root{--bg:#0b0f19;--fg:#e5e7eb;--muted:#94a3b8;--card:#0f172a;--ring:#1f2937}
+    }
+    html,body{height:100%}
+    body{
+      margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:var(--bg); color:var(--fg); display:grid; place-items:center; padding:24px;
+    }
+    .card{
+      width:min(680px,92vw); background:var(--card); border:1px solid var(--ring);
+      border-radius:20px; padding:32px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.06)
+    }
+    h1{font-size:clamp(22px,4vw,32px); margin:0 0 6px}
+    p{margin:0 0 18px; color:var(--muted); font-size:clamp(14px,2.6vw,16px)}
+    .btn{
+      display:inline-block; padding:12px 18px; border-radius:12px; text-decoration:none;
+      border:1px solid var(--ring); background:transparent; color:var(--fg);
+    }
+    .hint{margin-top:12px; font-size:13px; color:var(--muted)}
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-live="polite">
+    <h1>Your email has been verified! ✅</h1>
+    <p>You can now sign in to <strong>Alpha</strong>.</p>
+
+    <!-- If you have a custom URL scheme or universal link, set it here -->
+    <a id="openApp" class="btn" href="#">Open the app</a>
+    <div class="hint" id="fallbackHint" hidden>
+      If nothing happens, just return to the app and sign in.
+    </div>
+  </main>
+
+  <script>
+    // === CONFIG ===
+    // If you have a custom scheme (e.g., alpha://verified) set it here:
+    const APP_DEEP_LINK = "alpha://verified";   // replace when ready
+    // Or, if you use a universal link / website, put it here:
+    const WEB_FALLBACK = "/"; // e.g., "/download" or "https://yourdomain.com/app"
+
+    // Wire up the button
+    const btn = document.getElementById("openApp");
+    btn.href = APP_DEEP_LINK;
+
+    // Optional: auto-open the app after a short delay
+    setTimeout(() => {
+      try { window.location.href = APP_DEEP_LINK; } catch {}
+      // show a tiny hint in case deep link is not configured yet
+      document.getElementById("fallbackHint").hidden = false;
+    }, 900);
+
+    // If you prefer an immediate redirect to a web page instead, replace the setTimeout block with:
+    // window.location.replace(WEB_FALLBACK);
+  </script>
+</body>
+</html>
